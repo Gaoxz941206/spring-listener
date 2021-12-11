@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript" th:src="@{/js/jquery-3.4.1.js}"></script>
+    <script type="text/javascript">
+        $(function () {
+
+        })
+    </script>
+</head>
+<body>
+<center th:inline="text">
+    <select id="citySelect" th:each="${#servletContext.getAttribute('cityList')}">
+        <option>---请选择---</option>
+    </select>
+    <hr>
+    <table>
+        <tr>
+            <td>名称</td>
+            <td><input type="text" id="cityName"></td>
+        </tr>
+        <tr>
+            <td colspan="2" align="center">
+                <input type="button" id="addBtn" value="添加">
+            </td>
+        </tr>
+    </table>
+</center>
+</body>
+</html>
