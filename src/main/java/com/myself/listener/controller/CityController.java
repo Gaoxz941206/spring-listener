@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -33,15 +34,19 @@ public class CityController {
         return "index";
     }
 
+    @RequestMapping("/getAllCity")
+    @ResponseBody
+    public List<City> getAllCity(){
+        return redisService.getRedisCity();
+    }
+
     @RequestMapping("/add")
     @ResponseBody
-    public String addCity(String cityName, HttpServletRequest request){
-
-        ServletContext context = request.getServletContext();
+    public String addCity(String cityName){
         int result = cityService.addCity(cityName);
         String msg = "添加城市成功";
         if (result == 1) {
-            redisService.resetCity("cityList",context);
+            redisService.resetCity("cityList");
         }else {
             msg = "添加城市失败";
         }

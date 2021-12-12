@@ -6,24 +6,27 @@
     <script type="text/javascript" th:src="@{/js/jquery-3.4.1.js}"></script>
     <script type="text/javascript" th:inline="javascript">
         $(function () {
-
-            var cityList = [[${application.cityList}]];
-            flush(cityList);
+            flush();
 
             $("#addBtn").click(function () {
                 add();
-                var cityList = [[${application.cityList}]];
-                flush(cityList);
-            })
-        });
-        function flush(cityList) {
-            var html = "";
-            $("#citySelect").html(html);
-            html += "<option>---请选择---</option>";
-            $.each(cityList,function (i,n) {
-                html += '<option value="'+n.id+'" >'+n.cityName+'</option>';
             });
-            $("#citySelect").html(html);
+        });
+        function flush() {
+            $.ajax({
+                url:"getAllCity",
+                type: "get",
+                dataType: "json",
+                success:function (resp) {
+                    var html = "";
+                    $("#citySelect").html(html);
+                    html += "<option>---请选择---</option>";
+                    $.each(resp,function (i,n) {
+                        html += '<option value="'+n.id+'" >'+n.cityName+'</option>';
+                    });
+                    $("#citySelect").html(html);
+                }
+            });
         };
         function add() {
             var cityName = $.trim($("#cityName").val());
@@ -33,6 +36,7 @@
                 data:{cityName:cityName},
                 dataType:"text",
                 success:function (resp) {
+                    flush();
                     alert(resp);
                 }
             });

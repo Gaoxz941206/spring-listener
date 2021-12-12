@@ -27,17 +27,18 @@ public class RedisService {
     @Autowired(required = false)
     private CityMapper mapper;
 
-    public void resetCity(String key, ServletContext context){
+    public void resetCity(String key){
         if (redisTemplate.hasKey(key)) {
             redisTemplate.delete(key);
         }
         List<City> cityList = mapper.selectAll();
         for (City city : cityList) {
-            redisTemplate.opsForList().rightPush("cityList", city);
+            redisTemplate.opsForList().rightPush(key, city);
         }
-        List list = redisTemplate.opsForList().range("cityList", 0, -1);
-        context.removeAttribute("cityList");
-        context.setAttribute("cityList",list);
+        redisTemplate.opsForList().range(key, 0, -1);
+    }
 
+    public List<City> getRedisCity(){
+        return redisTemplate.opsForList().range("cityList",0,-1);
     }
 }
