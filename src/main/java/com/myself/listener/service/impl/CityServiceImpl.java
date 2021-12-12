@@ -6,7 +6,9 @@ import com.myself.listener.service.CityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Author Gaoxz
@@ -22,5 +24,10 @@ public class CityServiceImpl implements CityService {
     @Override
     public List<City> selectAll() {
         return mapper.selectAll();
+    }
+
+    @Override
+    public int addCity(String cityName) {
+        return mapper.insertCity(cityName);
     }
 }

@@ -10,4 +10,8 @@
         select id,cityName from t_city
     </select>
 
+    <insert id="insertCity">
+        insert into t_city (cityName) values (#{cityName})
+    </insert>
+
 </mapper>

@@ -3,6 +3,7 @@ package com.myself.listener.service;
 import com.myself.listener.model.City;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Author Gaoxz
@@ -11,4 +12,6 @@ import java.util.List;
  */
 public interface CityService {
     List<City> selectAll();
+
+    int addCity(String cityName);
 }

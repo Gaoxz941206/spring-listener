@@ -22,7 +22,7 @@ public class SpringListener implements ServletContextListener {
     @Override
     public void contextInitialized(ServletContextEvent sce) {
         ServletContext context = sce.getServletContext();
-        redisService.ResetCity("cityList",context);
+        redisService.resetCity("cityList",context);
     }
 
     @Override

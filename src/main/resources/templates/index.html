@@ -4,16 +4,45 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <script type="text/javascript" th:src="@{/js/jquery-3.4.1.js}"></script>
-    <script type="text/javascript">
+    <script type="text/javascript" th:inline="javascript">
         $(function () {
 
-        })
+            var cityList = [[${application.cityList}]];
+            flush(cityList);
+
+            $("#addBtn").click(function () {
+                add();
+                var cityList = [[${application.cityList}]];
+                flush(cityList);
+            })
+        });
+        function flush(cityList) {
+            var html = "";
+            $("#citySelect").html(html);
+            html += "<option>---请选择---</option>";
+            $.each(cityList,function (i,n) {
+                html += '<option value="'+n.id+'" >'+n.cityName+'</option>';
+            });
+            $("#citySelect").html(html);
+        };
+        function add() {
+            var cityName = $.trim($("#cityName").val());
+            $.ajax({
+                url:"add",
+                type:"post",
+                data:{cityName:cityName},
+                dataType:"text",
+                success:function (resp) {
+                    alert(resp);
+                }
+            });
+        }
     </script>
 </head>
 <body>
 <center th:inline="text">
-    <select id="citySelect" th:each="${#servletContext.getAttribute('cityList')}">
-        <option>---请选择---</option>
+    <select id="citySelect">
+
     </select>
     <hr>
     <table>
